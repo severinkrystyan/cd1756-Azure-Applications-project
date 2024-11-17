@@ -86,7 +86,7 @@ def authorized():
     if request.args.get('code'):
         cache = _load_cache()
         app_msal = _build_msal_app(cache=cache,authority=Config.AUTHORITY)
-        result = app_msal.acquire_token_by_authorization_code( request.args['code'], scopes=Config.SCOPE, redirect_uri=url_for('authorized', _external=True) )
+        result = app_msal.acquire_token_by_authorization_code( request.args['code'], scopes=Config.SCOPE, redirect_uri=url_for('authorized', _external=True, _scheme='https') )
         result = None
         if "error" in result:
             return render_template("auth_error.html", result=result)
